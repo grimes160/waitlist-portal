@@ -1,0 +1,32 @@
+---
+## Session 2026-06-16
+### Completed
+- Reviewed and analyzed first-round discovery answers from VP stakeholder session
+- Researched ALINE software — confirmed it is a full senior living ops platform (CRM, billing, care, leasing); waitlist applicants live as prospects in the CRM
+- Established ALINE integration strategy: one-time CSV export migration, not API sync; API path exists (open API, included with CRM subscription) but reserved for future Phase 5 consideration
+- Surfaced updated unit type breakdown: 1BR, 2BR Small, 2BR/3BR Large, Villa (4 types — expands original Apt/Villa assumption)
+- Updated assumption register: 3 original assumptions overturned (single deposit amount, one admin role, no existing waitlist)
+- Identified all schema-blocking open questions before any code is written
+
+### Current State
+- app/main.py: single /health endpoint only, no database connection
+- No schema defined — blocked on unit type queue structure and deposit amount breakdown across 4 types
+- No CI pipeline yet
+- Discovery phase actively in progress — first-round answers received, follow-up items outstanding
+- FigJam board updates identified but not yet applied (manual update list provided to Justin)
+
+### Open Items
+- ALINE CSV export sample/headers — Justin pursuing; deposit timestamp reliability is critical for queue integrity
+- Unit type queue structure — are 1BR/2BR Small/2BR Large/Villa separate queues or one combined list? Blocks schema
+- Deposit amounts — confirmed $5k Apt / $10k Villa, but split across 3 apartment subtypes is unconfirmed
+- Priority applicant rule — flag exists conceptually, but no computational definition (does it override position, adjust timestamp, etc.?)
+- Override authority — still TBD; affects whether Phase 1 needs RBAC or can ship with flat staff permissions
+- Staff magic link session length — 15-min token is correct for applicants; staff usage pattern requires a different session duration decision before Phase 1 auth is built
+- Multi-community future-proofing — recommend community_id field on schema from day one; other communities confirmed as scale target if successful
+- FigJam board — manual updates pending (list provided: backend tech, deliverable statuses, discovery answers, open questions, kanban cards)
+
+### Near future tasks
+- Build GitHub Actions CI pipeline (.github/workflows/ci.yml)
+- Pipeline: lint (ruff) → test (pytest) → build Docker image
+- Note: decide requirements-dev.txt split vs single requirements.txt before writing pipeline
+---
